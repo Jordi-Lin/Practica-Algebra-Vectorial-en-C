@@ -11,7 +11,7 @@ void PrintVect( float vect[N], int from, int numel)
     {
         printf("%f ", vect[i]);
     }
-    prinf("\n");
+    printf("\n");
 }
 
 void PrintRow( float mat[N][N], int row, int from, int numel )
@@ -29,7 +29,7 @@ void MultEscalar( float vect[N], float vectres[N], float alfa )
     int i;
     for ( i = 0; i < N; i++)
     {
-        vectres[N] = vect[N]*alfa;
+        vectres[i] = vect[i]*alfa;
     }
 }
 
@@ -41,36 +41,36 @@ float Scalar( float vect1[N], float vect2[N] )
     {
         suma = suma + (vect1[i]*vect2[i]);
     }
-    return suma
+    return suma;
 }
 
 float Magnitude( float vect[N] )
 {
     int i;
-    int suma;
+    int result;
     for ( i=0; i < N; i++)
     {
-        suma = suma + (sqrt(vect[i]**))
+        result = sqrt(Scalar( vect, vect ));
     }
-    return suma
+    return result;
 }
 
 int Ortogonal( float vect1[N], float vect2[N] )
 {
-    if ( Scalar( vect1[N], vect2[N] ) == 0 )
+    if ( Scalar( vect1, vect2 ) == 0 )
     {
-        return 1
+        return 1;
     }
     else
     {
-        return 0
+        return 0;
     }
 }
 
 void Projection( float vect1[N], float vect2[N], float vectres[N] )
 {
-    float alfa = (( Scalar( vect1[N], vect2[N] ) / Magnitude( vect2[N] ) ))
-    return MultEscalar( vect2[N] )
+    float alfa = (( Scalar( vect1, vect2 ) / Magnitude( vect2 ) ));
+    return MultEscalar( vect2, vectres, alfa );
 }
 
 int main()
