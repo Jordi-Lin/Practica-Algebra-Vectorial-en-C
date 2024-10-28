@@ -7,7 +7,7 @@
 void PrintVect( float vect[N], int from, int numel)
 {
     int i;
-    for ( i = from; i <= from+numel; i++)
+    for ( i = from; i <= from+numel; i++ )
     {
         printf("%f ", vect[i]);
     }
@@ -17,7 +17,7 @@ void PrintVect( float vect[N], int from, int numel)
 void PrintRow( float mat[N][N], int row, int from, int numel )
 {
     int i;
-    for ( i = from; i <= from+numel; i++)
+    for ( i = from; i <= from+numel; i++ )
     {
         printf("%f ", mat[row][i]);
     }
@@ -27,7 +27,7 @@ void PrintRow( float mat[N][N], int row, int from, int numel )
 void MultEscalar( float vect[N], float vectres[N], float alfa )
 {
     int i;
-    for ( i = 0; i < N; i++)
+    for ( i = 0; i < N; i++ )
     {
         vectres[i] = vect[i]*alfa;
     }
@@ -37,7 +37,7 @@ float Scalar( float vect1[N], float vect2[N] )
 {
     int i;
     int suma;
-    for ( i=0; i < N; i++)
+    for ( i = 0; i < N; i++ )
     {
         suma = suma + (vect1[i]*vect2[i]);
     }
@@ -48,7 +48,7 @@ float Magnitude( float vect[N] )
 {
     int i;
     int result;
-    for ( i=0; i < N; i++)
+    for ( i = 0; i < N; i++ )
     {
         result = sqrt(Scalar( vect, vect ));
     }
@@ -71,6 +71,46 @@ void Projection( float vect1[N], float vect2[N], float vectres[N] )
 {
     float alfa = (( Scalar( vect1, vect2 ) / Magnitude( vect2 ) ));
     return MultEscalar( vect2, vectres, alfa );
+}
+
+float Infininorm( float M[N][N] )
+{
+    float max = 0;
+    float suma;
+    int i;
+    int j;
+    for ( i = 0; i < N; i++ )
+    {
+        for ( j = 0; j < N; j++ )
+        {
+            suma = suma + fabs(M[i][j]);
+        }
+        if ( max < suma )
+        {
+            max = suma;
+        }
+    }
+    return max;
+}
+
+float Onenorm( float M[N][N] )
+{
+    int i;
+    int j;
+    float max = 0;
+    float suma;
+    for ( i = 0; i < N; i++ )
+    {
+        for ( j = 0; j < N; j++ )
+        {
+            suma = suma + fabs(M[j][i]);
+        }
+        if ( max < suma )
+        {
+            max = suma;
+        }
+    }
+    return max;
 }
 
 int main()
