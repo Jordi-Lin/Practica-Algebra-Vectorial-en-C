@@ -4,12 +4,12 @@
 
 #define N 512
 
-void PrintVect( float vect[N], int from, int numel)
+void PrintVect( float vect[N], int from, int numel) 
 {
     int i;
-    for ( i = from; i <= numel; i++ )
+    for ( i = from; i <= numel; i++ ) // Bucle for que recorre des d'una posició donada fins a una altre posició també donada
     {
-        printf("%f ", vect[i]);
+        printf("%f ", vect[i]); // Imprimim la posició i del vector per a cada iteració
     }
     printf("\n");
 }
@@ -17,9 +17,9 @@ void PrintVect( float vect[N], int from, int numel)
 void PrintRow( float mat[N][N], int row, int from, int numel )
 {
     int i;
-    for ( i = from; i <= numel; i++ )
+    for ( i = from; i <= numel; i++ ) // Bucle for que recorre des d'una posició donada fins a una posició final també donada
     {
-        printf("%f ", mat[row][i]);
+        printf("%f ", mat[row][i]); // Imprimim la columna i d'una fila pasada com a paràmetre per a cada iteració
     }
     printf("\n");
 }
@@ -27,9 +27,9 @@ void PrintRow( float mat[N][N], int row, int from, int numel )
 void MultEscalar( float vect[N], float vectres[N], float alfa )
 {
     int i;
-    for ( i = 0; i < N; i++ )
+    for ( i = 0; i < N; i++ ) // Bucle for que recorre tot el vector pasat com a paràmetre
     {
-        vectres[i] = vect[i]*alfa;
+        vectres[i] = vect[i]*alfa; // Assignem al vector resultant passat com a paràmetre el producte entre el valor de la posició i del vector i la constant passat com a paràmetre per a cada iteració 
     }
 }
 
@@ -37,40 +37,36 @@ float Scalar( float vect1[N], float vect2[N] )
 {
     int i;
     float suma = 0;
-    for ( i = 0; i < N; i++ )
+    for ( i = 0; i < N; i++ ) // Bucle for que recorre tot el vector passat com a paràmetre
     {
-        suma = suma + (vect1[i]*vect2[i]);
+        suma = suma + (vect1[i]*vect2[i]); // Sumem a una variable declarada el producte del valor de la posició i del primer vector amb el valor de la mateixa posició del segon vector, vectors els quals estan passats com a paràmetre 
     }
-    return suma;
+    return suma; // Retornem el valor de la variable suma que surt com a resultat del bucle anterior
 }
 
 float Magnitude( float vect[N] )
 {
-    int i;
     float result;
-    for ( i = 0; i < N; i++ )
-    {
-        result = sqrt(Scalar( vect, vect ));
-    }
-    return result;
+    result = sqrt(Scalar( vect, vect )); // A una variable declarada li assignem el resultat de fer l'arrel quadrada del producte escalar de dos vectors (aquests sent el mateix vector, el qual està passat com a paràmetre)
+    return result; // Retornem el resultat del valor de la variable declarada després d'haver fet el bucle anterior
 }
 
 int Ortogonal( float vect1[N], float vect2[N] )
 {
-    if ( Scalar( vect1, vect2 ) == 0 )
+    if ( Scalar( vect1, vect2 ) == 0 ) // Comprovem si el resultat de fer l'escalar entre els dos vectors passats com a paràmetre és igual a 0
     {
-        return 1;
+        return 1; // Si és igual a zero la funció retorna 1
     }
     else
     {
-        return 0;
+        return 0; // Si no és igual a zero la funció retorna 0
     }
 }
 
 void Projection( float vect1[N], float vect2[N], float vectres[N] )
 {
-    float alfa = (( Scalar( vect1, vect2 ) / Magnitude( vect2 ) ));
-    return MultEscalar( vect2, vectres, alfa );
+    float alfa = (( Scalar( vect1, vect2 ) / Magnitude( vect2 ) )); // Declarem una variable i li assignem el resultat de fer la divisió entre el producte escalar de dos vectors passats com a paràmetre i la magnitud del segon vector
+    return MultEscalar( vect2, vectres, alfa ); // Retornem el resultat de multiplicar cada component d'un vector per una constant. La constant serà la variable d'abans i per fer aquesta operació fem servir una funció ja programada anteriorment i només hem de pasar-li tres paràmetres: el vector a operar, el vector per afegir el resultat i la constant
 }
 
 float Infininorm( float M[N][N] )
@@ -79,22 +75,22 @@ float Infininorm( float M[N][N] )
     float suma = 0;
     int i;
     int j;
-    for ( i = 0; i < N; i++ )
+    for ( i = 0; i < N; i++ ) // Bucle for que recorre cada fila (per recórrer la següent fila s'ha de recórrer totes les columnes de la fila anterior)
     {
-        for ( j = 0; j < N; j++ )
+        for ( j = 0; j < N; j++ ) // Bucle for que recorre cada columna 
         {
-            suma = suma + fabs(M[i][j]);
+            suma = suma + fabs(M[i][j]); // A una variable declarada li sumem el valor absolut de la posició actual on estem de la matriu 
         }
-        if ( max < suma )
+        if ( max < suma ) // Quan acabem d'iterar una fila observem si el resultat de les sumes anteriors és més gran que una variable declarada per guardar el valor més gran.
         {
-            max = suma;
+            max = suma; // Si és compleix l'anterior assignem el valor del resultat de les sumes actuals a la variable per guardar el valor més gran.  
         }
-        suma = 0;
+        suma = 0; // Reiniciem la variable suma a zero per tal de calcular el resultat de les sumes de la següent fila
     }
     return max;
 }
 
-float Onenorm( float M[N][N] )
+float Onenorm( float M[N][N] ) // Fa el mateix que a la funció anterior, però en comptes de sumar valors d'una fila suma els valors d'una columna.
 {
     int i;
     int j;
@@ -120,14 +116,14 @@ float NormFrobenius( float M[N][N] )
     int i;
     int j;
     float suma = 0;
-    for ( i = 0; i < N; i++ )
+    for ( i = 0; i < N; i++ ) // Bucle for que recorre cada fila de la matriu
     {
-        for ( j = 0; j < N; j++ )
+        for ( j = 0; j < N; j++ ) // Bucle for que recorre cada columna de la matriu
         {
-            suma = suma + (M[i][j]*M[i][j]);
+            suma = suma + (M[i][j]*M[i][j]); // A una variable declarada li sumem el resultat de multiplicar la posició actual on estem per si mateix o sigui el quadrat de la posició
         }
     }
-    return sqrt(suma);
+    return sqrt(suma); // Retornem l'arrel quadrada de la variable declarada després de les iteracions anteriors
 }
 
 int DiagonalDom( float M[N][N] )
@@ -135,19 +131,19 @@ int DiagonalDom( float M[N][N] )
     int i;
     int j;
     float suma = 0;
-    for ( i = 0; i < N; i++ )
+    for ( i = 0; i < N; i++ ) // Bucle for que recorre cada fila
     {
-        for ( j = 0; j < N; j++ )
+        for ( j = 0; j < N; j++ ) // Bucle for que recorre cada columna
         {
-            suma = suma + fabs(M[i][j]);
+            suma = suma + fabs(M[i][j]); // A una variable declarada li sumem el valor absolut de la posició actual de la matriu
         }
-        if ( fabs(M[i][i]) < (suma - fabs(M[i][i])) )
+        if ( fabs(M[i][i]) < (suma - fabs(M[i][i])) ) // Quan acaba el bucle anterior, acabem d'iterar tota una fila sencera i observem si el valor absolut de la posició de la diagonal és més petit que la suma dels valors absoluts de totes les altres posicions de la fila 
         {
-            return 0;
+            return 0; // Si es compleix la condició anterior retornem 0 i acabem els bucles
         }
-        suma = 0;
+        suma = 0; // Reiniciem la variable declarada per tal de sumar els valors de la següent fila sense tenir en compte valors d'altres files
     }
-    return 1;
+    return 1; // Si iterem tota la matriu i mai es compleix la condició dins dels bucles, retornem 1
 }
 
 void Matriu_x_Vector( float M[N][N], float vect[N], float vectres[N] )
@@ -155,16 +151,56 @@ void Matriu_x_Vector( float M[N][N], float vect[N], float vectres[N] )
     int i;
     int j;
     float suma;
-    for ( i = 0; i < N; i++ )
+    for ( i = 0; i < N; i++ ) // Bucle for que recorre cada fila
     {
-        for ( j = 0; j < N; j++ )
+        for ( j = 0; j < N; j++ ) // Bucle for que recorre cada columna
         {
-            suma = suma + (M[i][j]*vect[j]);
+            suma = suma + (M[i][j]*vect[j]); // A una variable declarada li sumem el producte entre el valor de la posició actual on estem de la matriu i el valor de la posició de columna on estem actualment del vector
         }
-        vectres[i] = suma;
-        suma = 0;
+        vectres[i] = suma; // El resultat de les sumes anteriors l'afegim a un vector resultant passat com a paràmetre
+        suma = 0; // Reiniciem la variable declarada per tal d'iterar la següent fila sense tenir en compte les sumes d'altres files
     }
 }
+
+//    int Jacobi ( float M[N][N], float vect[N], float vectres[N], unsigned iter )
+//    {
+//        float S[N][N]; // Matriu amb tots els valors de la matriu passada com a paràmtre menys els valors dins de la diagonal
+//        float T[N][N]; // Matriu amb només els valors de la diagonal de la matriu passada com a paràmetre
+//        int i;
+//        int j;
+//        int a;
+//        float suma = 0;
+//        if ( DiagonalDom(M) == 0 ) // Observem si la matriu és diagonal dominant o sigui en fer DiagonalDom(Matriu) ens ha de donar 1
+//        {
+//            return 0; // Si no dona 1 sinó 0 retornem 0
+//        }
+//        for ( i = 0; i < N; i++ ) // Bucle for que recorre les files de la matriu passada com a paràmetre
+//        {
+//           for ( j = 0; j < N; j++ ) // Bucle for que recorre les columnes de la matriu passada com a paràmetre
+//            {
+//                if ( j == i ) // Si estem en la diagonal
+//                {
+//                    T[i][j] = M[i][j]; // Afegim a la matriu declarada pels valors de la diagonal el valor de la diagonal el valor de la diagonal de la matriu passada com a paràmetre
+//                    S[i][i] = 0; // Afegim a la matriu declarada per la resta dels valors el valor de zero
+//                }
+//                else // Si no estem en la diagonal
+//                {
+//                    S[i][j] = M[i][j]; // Afegim a la matriu declarada per la resta dels valors el valor de la posició actual de la matriu que estem iterant
+//                    T[i][i] = 0; // Afegim a la matriu declarada per els valors de la diagonal el valor de zero
+//                }
+//            }
+//        }
+//        for ( a = 0; a < iter; a++ ) // Anem iterant tantes vegades com ens indica el paràmetre de iteracions
+//        {
+//            for ( i = 0; i < N; i++ ) // Bucle for per les files
+//            {
+//                for ( j = 0; j < N; j++ ) // Bucle for per les columnes
+//                {
+//                  asdas
+//                }
+//            }
+//        }
+//    }
 
 int main()
 {
